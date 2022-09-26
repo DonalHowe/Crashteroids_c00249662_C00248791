@@ -35,7 +35,13 @@ using UnityEngine;
 public class Asteroid : MonoBehaviour
 {
     public float speed = 1;
+    public float maxSpeed = 10;
     private float maxY = -5;
+
+    private void Start()
+    {
+        StartCoroutine("ManageAsteroidSpeedUp");
+    }
 
     private void Update()
     {
@@ -47,8 +53,21 @@ public class Asteroid : MonoBehaviour
         transform.Translate(Vector3.down * Time.deltaTime * speed);
         if (transform.position.y < maxY)
         {
-            Destroy(gameObject);
+            float changeOfSurivival = Random.Range(1, 11);
+
+            if (changeOfSurivival <= 7)
+            {
+                float xPos = Random.Range(-8.0f, 8.0f);
+                transform.position = new Vector3(xPos, 7.35f, 0);
+            }
+
+            else
+            {
+                Destroy(gameObject);
+            }
         }
+
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -66,4 +85,18 @@ public class Asteroid : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    IEnumerator ManageAsteroidSpeedUp()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        if (speed < maxSpeed)
+        {
+            speed += 0.5f;
+            StartCoroutine("ManageAsteroidSpeedUp");
+            Debug.Log(speed);
+        }
+
+    }
+
 }

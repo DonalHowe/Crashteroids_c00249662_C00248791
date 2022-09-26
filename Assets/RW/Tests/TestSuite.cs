@@ -200,5 +200,27 @@ public class TestSuite
         Assert.Less(ship.transform.position.y, initialYPosition); // Move Down works
     }
 
+    [UnityTest]
+    public IEnumerator AsteroidSpeedIncrease()
+    {
+        GameObject asteroid = game.GetSpawner().SpawnAsteroid();
 
+        float firstSpeed = asteroid.GetComponent<Asteroid>().speed;
+
+        yield return new WaitForSeconds(1.1f);
+
+        Assert.Greater(asteroid.GetComponent<Asteroid>().speed, firstSpeed);
+    }
+
+    [UnityTest]
+    public IEnumerator AsteroidSpeedCap()
+    {
+        GameObject asteroid = game.GetSpawner().SpawnAsteroid();
+
+        asteroid.GetComponent<Asteroid>().speed = asteroid.GetComponent<Asteroid>().maxSpeed;
+
+        yield return new WaitForSeconds(1.1f);
+
+        Assert.AreEqual(asteroid.GetComponent<Asteroid>().speed, asteroid.GetComponent<Asteroid>().maxSpeed);
+    }
 }

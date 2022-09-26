@@ -57,7 +57,7 @@ public class Spawner : MonoBehaviour
 
     IEnumerator Spawn()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.8f);
 
         SpawnAsteroid();
         StartCoroutine("Spawn");
@@ -65,7 +65,7 @@ public class Spawner : MonoBehaviour
 
     IEnumerator PowerUpSpawnLoop()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(15.0f);
 
         SpawnPowerUp();
         StartCoroutine("PowerUpSpawnLoop");
