@@ -180,5 +180,25 @@ public class TestSuite
         // 2
         UnityEngine.Assertions.Assert.IsNull(asteroid);
     }
+    [UnityTest]
+
+    public IEnumerator MoveUpAndDown()
+    {
+
+        Ship ship = game.GetShip();
+
+        float initialYPosition = ship.transform.position.y;
+
+        ship.MoveUp();
+        yield return new WaitForSeconds(0.1f);
+
+        Assert.Greater(ship.transform.position.y, initialYPosition); // Move up works
+
+        ship.MoveDown();
+        yield return new WaitForSeconds(0.1f);
+
+        Assert.Less(ship.transform.position.y, initialYPosition); // Move Down works
+    }
+
 
 }
