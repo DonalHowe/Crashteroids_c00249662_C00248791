@@ -65,7 +65,7 @@ public class Spawner : MonoBehaviour
 
     IEnumerator PowerUpSpawnLoop()
     {
-        yield return new WaitForSeconds(15.0f);
+        yield return new WaitForSeconds(1.0f);
 
         SpawnPowerUp();
         StartCoroutine("PowerUpSpawnLoop");
@@ -80,7 +80,7 @@ public class Spawner : MonoBehaviour
         powerUp.SetActive(true);
         float xPos = Random.Range(-8.0f, 8.0f);
 
-        // Spawn asteroid just above top of screen at a random point along x-axis
+        // Spawn powerup just above top of screen at a random point along x-axis
         powerUp.transform.position = new Vector3(xPos, 7.35f, 0);
 
         powerUps.Add(powerUp);

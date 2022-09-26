@@ -130,5 +130,55 @@ public class TestSuite
         Assert.Greater(initialXPos, ship.transform.position.x); // Move Left Works
     }
 
+    [UnityTest]
+    public IEnumerator MovePowerUpDown()
+    {
+        // 1
+        GameObject powerUp = game.GetSpawner().SpawnPowerUp();
+
+        // 2
+        float initialYPos = powerUp.transform.position.y;
+        yield return new WaitForSeconds(0.1f);
+
+        // 3
+        Assert.Less(powerUp.transform.position.y, initialYPos); // Move Left Works
+    }
+
+    [UnityTest]
+    public IEnumerator PowerUpTurnsOnShield()
+    {
+        // 1
+        Ship ship = game.GetShip();
+        GameObject powerUp = game.GetSpawner().SpawnPowerUp();
+        GameObject shield = game.GetShield();
+
+        // 2
+        bool shieldBefore = shield.activeInHierarchy;
+
+        // 3
+        powerUp.transform.position = Vector3.zero;
+        ship.transform.position = Vector3.zero;
+
+        yield return new WaitForSeconds(0.1f);
+
+        // 4
+        Assert.AreNotEqual(shield.activeInHierarchy, shieldBefore);
+        UnityEngine.Assertions.Assert.IsNull(powerUp);
+
+    }
+
+    [UnityTest]
+    public IEnumerator ShieldDestroysAsteroid()
+    {
+        // 1
+        GameObject asteroid = game.GetSpawner().SpawnAsteroid();
+        asteroid.transform.position = Vector3.zero;
+        GameObject shield = game.GetShield();
+        shield.transform.position = Vector3.zero;
+        shield.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        // 2
+        UnityEngine.Assertions.Assert.IsNull(asteroid);
+    }
 
 }

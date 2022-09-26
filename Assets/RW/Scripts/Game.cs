@@ -51,6 +51,7 @@ public class Game : MonoBehaviour
     [SerializeField]
     private Spawner spawner;
 
+
     private static Game instance;
 
     private void Start()
@@ -103,5 +104,10 @@ public class Game : MonoBehaviour
     public Spawner GetSpawner()
     {
         return spawner.GetComponent<Spawner>();
+    }
+
+    public GameObject GetShield()
+    {
+        return shipModel.transform.Find("Shield").gameObject;
     }
 }
